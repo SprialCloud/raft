@@ -23,7 +23,46 @@ type ExampleReply struct {
 }
 
 // Add your RPC definitions here.
+//任务类型
+const (
+	MapTask = "map"
+	ReduceTask = "reduce"
+	ExitTask = "exit"
+	WaitTask = "wait"
+)
 
+//任务状态
+const (
+	Idle = "idle"
+	InProgress = "in_progress"
+	Completed = "completed"
+)
+
+//请求任务
+type GetTaskArgs struct {
+	WorkerID int
+}
+
+type GetTaskReply struct {
+	TaskID int
+	TaskType string
+	FileName string
+	MapTaskNum int
+	ReduceTaskNum int
+	NReduce int
+}
+
+//汇报任务状态
+type ReportTaskArgs struct {
+	TaskID int
+	TaskType string
+	Completed bool
+	WorkerID int
+}
+
+type ReportTaskReply struct {
+	OK bool
+}
 
 // Cook up a unique-ish UNIX-domain socket name
 // in /var/tmp, for the coordinator.
